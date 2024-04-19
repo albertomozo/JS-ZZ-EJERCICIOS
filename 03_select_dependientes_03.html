@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Dependientes</title>
+</head>
+<body>
+    <h1>Select Dependientes</h1>
+    <select name="dependientes" id="dependientes" onchange="seleccion()">
+    </select>
+    <div id="result"></div>
+    <div id="select01"></div>
+
+    <script>
+        let vselect = document.getElementById('dependientes');
+        let option01 = ['Front', 'Back', 'DevOps', 'Sistema'];
+        let front = ['HTML', 'CSS', 'JS'];
+        let back = ['PHP', 'MySql', 'Apache'];
+        let devops = ['github', 'netlify', 'docker'];
+        let sistema = ['red', 'window', 'Linux'];
+        let toption01 = '<option>--- seleccione opcion ---</option>';
+
+        for (let i = 0; i < option01.length; i++) {
+            toption01 += `<option>${option01[i]}</option>`;
+        }
+        document.getElementById('dependientes').innerHTML = toption01;
+
+        function createOptions(options) {
+            let fragment = document.createDocumentFragment();
+            options.forEach(option => {
+                let optionElement = document.createElement('option');
+                optionElement.textContent = option;
+                fragment.appendChild(optionElement);
+            });
+            return fragment;
+        }
+
+        function seleccion() {
+            const textoSeleccionado = vselect.options[vselect.selectedIndex].text;
+            document.getElementById('result').innerHTML = textoSeleccionado;
+            let option02 = [];
+            switch (textoSeleccionado) {
+                case 'Front':
+                    option02 = front;
+                    break;
+                case 'Back':
+                    option02 = back;
+                    break;
+                case 'DevOps':
+                    option02 = devops;
+                    break;
+                case 'Sistema':
+                    option02 = sistema;
+                    break;
+                default:
+                    break;
+            }
+            let select01 = document.createElement('select');
+            select01.appendChild(createOptions(option02));
+            document.getElementById('select01').innerHTML = '';
+            document.getElementById('select01').appendChild(select01);
+        }
+    </script>
+</body>
+</html>

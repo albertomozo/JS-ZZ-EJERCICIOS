@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Dependientes</title>
+</head>
+<body>
+    <h1>Select Dependientes</h1>
+    <select name="dependientes" id="dependientes" onchange="seleccion()">
+    </select>
+    <div id="result"></div>
+    <div id="select01"></div>
+
+    <script>
+        let vselect = document.getElementById('dependientes');
+        // Objeto que contiene las opciones dependientes
+        let options = {
+            'Front': ['HTML', 'CSS', 'JS'],
+            'Back': ['PHP', 'MySql', 'Apache'],
+            'DevOps': ['github', 'netlify', 'docker'],
+            'Sistema': ['red', 'window', 'Linux'],
+            'Ofimatica' : ['Procesador textos','Hoja de calculo','Presentaciones'],
+            'Otros' : 'Otros'
+        };
+        let toption01 = '<option>--- seleccione opcion ---</option>';
+
+        // Generar opciones para el primer select
+        for (let option in options) {
+            toption01 += `<option>${option}</option>`;
+        }
+        document.getElementById('dependientes').innerHTML = toption01;
+
+        function createOptions(options) {
+            let fragment = document.createDocumentFragment();
+            options.forEach(option => {
+                let optionElement = document.createElement('option');
+                optionElement.textContent = option;
+                fragment.appendChild(optionElement);
+            });
+            return fragment;
+        }
+
+        function seleccion() {
+            const textoSeleccionado = vselect.options[vselect.selectedIndex].text;
+            document.getElementById('result').innerHTML = textoSeleccionado;
+
+            let option02 = options[textoSeleccionado];
+            if (option02) {
+                let select01 = document.createElement('select');
+                select01.appendChild(createOptions(option02));
+                document.getElementById('select01').innerHTML = '';
+                document.getElementById('select01').appendChild(select01);
+            } else {
+                document.getElementById('select01').innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
