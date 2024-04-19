@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mover Imagen en Contenedor con Botones</title>
+<style>
+  #contenedor {
+    width: 400px;
+    height: 400px;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+  }
+  #imagen {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+</head>
+<body>
+
+<div id="contenedor">
+  <img id="imagen" src="img/perro-imagen-animada-0182.gif" alt="Imagen">
+</div>
+<button id="startButton">Iniciar</button>
+<button id="pauseButton">Pausar</button>
+<button id="resetButton">Reiniciar</button>
+
+<script>
+  const contenedor = document.getElementById('contenedor');
+  const imagen = document.getElementById('imagen');
+  const startButton = document.getElementById('startButton');
+  const pauseButton = document.getElementById('pauseButton');
+  const resetButton = document.getElementById('resetButton');
+  
+  let animationInterval;
+  let offsetX = 0;
+  let offsetY = 0;
+  let direction = 'right';
+  let incremento = 0.2;
+  
+  startButton.addEventListener('click', () => {
+    animationInterval = setInterval(moverImagen, 1000);
+  });
+  
+  pauseButton.addEventListener('click', () => {
+    clearInterval(animationInterval);
+  });
+  
+  resetButton.addEventListener('click', () => {
+    clearInterval(animationInterval);
+    offsetX = 0;
+    offsetY = 0;
+    imagen.style.left = '0px';
+    imagen.style.top = '0px';
+    direction = 'right';
+  });
+
+  function moverImagen() {
+    const contenedorWidth = contenedor.offsetWidth;
+    const contenedorHeight = contenedor.offsetHeight;
+    const imagenWidth = imagen.offsetWidth;
+    const imagenHeight = imagen.offsetHeight;
+
+    const maxOffsetX = contenedorWidth - imagenWidth;
+    const maxOffsetY = contenedorHeight - imagenHeight;
+
+    switch (direction) {
+      case 'right':
+        offsetX += incremento;
+        if (offsetX >= 1) {
+          offsetX = 1;
+          direction = 'down';
+        }
+        break;
+      case 'down':
+        offsetY += incremento;
+        if (offsetY >= 1) {
+          offsetY = 1;
+          direction = 'left';
+        }
+        break;
+      case 'left':
+        offsetX -= incremento;
+        if (offsetX <= 0) {
+          offsetX = 0;
+          direction = 'up';
+        }
+        break;
+      case 'up':
+        offsetY -= incremento;
+        if (offsetY <= 0) {
+          offsetY = 0;
+          direction = 'right';
+        }
+        break;
+    }
+
+    const newLeft = maxOffsetX * offsetX;
+    const newTop = maxOffsetY * offsetY;
+
+    imagen.style.left = `${newLeft}px`;
+    imagen.style.top = `${newTop}px`;
+  }
+</script>
+
+</body>
+</html>

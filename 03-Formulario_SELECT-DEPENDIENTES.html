@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Array-Matrices</title>
+    <style>
+    
+        .container{
+            padding: 100px;
+            font-family: helvetica;
+        }
+        
+    </style>
+</head>
+<body>
+   
+   <div class="container">
+       
+       <h1>Array - select - onchange dependientes</h1>      
+       <form name="form1">
+           <select name="categorias" id="idcategorias" 
+           ">         
+           </select>
+           <div id="capaselect2"></p>
+       </form>
+       
+       <p id="txt1"></p>
+       <p id="txt2"></p>
+       <p id="txt3"></p>       
+       
+<script>
+
+    let categorias = ["Frontend","Backend","Sistemas","programación"];
+    let frontend = ["HTML","CSS","JS","VUE"];
+    let backend = ["XML","mYsQL","PHP","REST"];
+    let sistemas = ["Red","Bases de datos","Sistemas Microinformaticos"];
+    let programa = ["Java","Python","C","Visual Basic"];
+    let textoselec1='';
+    for (let i=0;i<categorias.length;i++){
+        textoselec1 += '<option value="'+i+'">'+ categorias[i] +' </option>';
+    }
+    document.getElementById("idcategorias").innerHTML=textoselec1;
+
+    idcategorias.addEventListener('change',iraselect2,false);
+
+
+
+    function iraselect2(){
+       
+        selectcat =  document.getElementById('idcategorias');
+        //indice = document.getElementById('idcategorias')[document.getElementById('idcategorias').selectedIndex].value;
+        indice = selectcat[selectcat.selectedIndex].value
+        console.log('indice : ' + indice);
+        switch (indice)
+        {
+            case '0':
+                select2 = frontend;
+                break;
+            case '1':
+                select2 = backend;
+                break;
+            case '2':
+                select2 = sistemas;
+                break;
+            case '3':
+                select2 = programa;
+                break;
+            default:
+                select2 = frontend;
+                break;
+        }
+
+        combo2 = '<select name="subcategorias" id="idsubcategorias" >';
+        for  (var i=0 ; i<select2.length; i++){
+            combo2 += '<option value="'+i+'" >' + select2[i]+'</option>';
+        }
+        combo2 += '</select>';
+        document.getElementById('capaselect2').innerHTML = combo2;
+    }
+
+</script>
+       
+       
+       
+   </div>
+    
+</body>
+</html>

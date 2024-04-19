@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Documento sin título</title>
+<style type="text/css">
+
+body {
+	background-color: #CCC;
+}
+#conteiner {
+	max-width: 700px;
+	height: 500px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FFF;
+	padding: 10px;
+	text-align:center;
+}
+	img{
+		cursor: pointer;
+	}
+
+</style>
+
+
+<script>
+
+function cambiar(iden) {
+    console.log(iden);
+    var imagen = document.getElementById(iden);
+    
+    if (imagen.src.match("bombilla-on.gif")) {
+        imagen.src = "img/bombilla-off.gif";
+    } else {
+        imagen.src = "img/bombilla-on.gif";
+    }
+}  
+/*
+El método match () busca en una cadena para un partido contra una expresión regular y devuelve los partidos, como un objeto Array.*/
+</script>
+</head>
+<body>
+
+<div id="conteiner">
+<h1>con JavaScript vamos a cambiar la imagen</h1>
+
+<p>getAttribute() - devuelve exactamente lo que había en el código HTML. Puede ser una dirección URL relativa.</p>
+
+<p>src - devuelve una URL absoluta completo, incluso si lo que había en el código HTML era una URL relativa.</p>
+
+<img id="foto" onclick="cambiar('foto')" src="img/bombilla-off.gif" title="Bombilla">
+
+<img id="foto1" onclick="cambiar('foto1')" src="img/bombilla-off.gif" title="Bombilla">
+
+<img id="foto2" onclick="cambiar('foto2')" src="img/bombilla-on.gif" title="Bombilla">
+<img id="foto3" onclick="cambiar('foto3')" src="img/bombilla-on.gif" title="Bombilla">
+<img id="reloj" onclick="cambiar('reloj')" src="img/reloj.GIF" title="Reloj">
+<p>Click en la foto para encender/apagar la luz. </p>
+
+</div>
+
+</body>
+</html>
+
