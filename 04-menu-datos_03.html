@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Cuatro Niveles</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            display: inline-block;
+            position: relative;
+        }
+
+        ul li ul {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #f9f9f9;
+            padding: 5px 0;
+            border-radius: 0 5px 5px 5px;
+            z-index: 1;
+        }
+
+        ul li:hover > ul {
+            display: block;
+        }
+
+        ul li ul li {
+            display: block;
+        }
+
+        ul li ul li:hover {
+            background-color: #ddd;
+        }
+
+        ul li ul li ul {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #f9f9f9;
+            padding: 5px 0;
+            border-radius: 0 5px 5px 5px;
+            z-index: 1;
+        }
+
+        ul li ul li:hover > ul {
+            display: block;
+        }
+
+        ul li ul li ul li ul {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #f9f9f9;
+            padding: 5px 0;
+            border-radius: 0 5px 5px 5px;
+            z-index: 1;
+        }
+
+        ul li ul li ul li:hover > ul {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Menú de Cuatro Niveles</h1>
+    <nav>
+        <ul id="menu">
+        </ul>
+    </nav>
+
+    <script>
+        let options = {
+            'Front': ['HTML', 'CSS', 'JS'],
+            'Back': {
+                'BBDD': [{'Relacionales': ['MySql', 'Postgres', 'Oracle']},
+                         {'NOSQL': 'Mongo'}
+                        ],
+                'Servidores': [{'LAMP':['Apache','NGINX']},
+                                {'Cloud':['AWS','Azure']}
+                              ],
+                'ServerLess':'node.js'
+
+                
+            },
+            'DevOps': ['github', 'netlify', 'docker'],
+            'Sistema': ['red', 'window', 'Linux']
+        };
+
+        function createMenu(options, parent) {
+            let menu = document.getElementById('menu');
+            for (let key in options) {
+                let listItem = document.createElement('li');
+                let sublist = document.createElement('ul');
+                let subOptions = options[key];
+
+                let mainLink = document.createElement('a');
+                mainLink.textContent = key;
+                listItem.appendChild(mainLink);
+
+                if (Array.isArray(subOptions)) {
+                    subOptions.forEach(subOption => {
+                        if (typeof subOption === 'string') {
+                            let subListItem = document.createElement('li');
+                            let subLink = document.createElement('a');
+                            subLink.textContent = subOption;
+                            subListItem.appendChild(subLink);
+                            sublist.appendChild(subListItem);
+                        } else if (typeof subOption === 'object') {
+                            createMenu(subOption, sublist);
+                        }
+                    });
+                } else if (typeof subOptions === 'object') {
+                    createMenu(subOptions, sublist);
+                }
+
+                listItem.appendChild(sublist);
+                parent.appendChild(listItem);
+            }
+        }
+
+        createMenu(options, menu);
+    </script>
+</body>
+</html>
