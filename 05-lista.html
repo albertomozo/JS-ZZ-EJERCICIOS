@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Gestión de Tareas</title>
+  <!--   <link rel="stylesheet" href="styles.css"> -->
+  <style>
+    .completed {
+    text-decoration: line-through;
+    color: #999;
+    }
+  </style>
+</head>
+<body>
+    <h1>Aplicación de Gestión de Tareas</h1>
+    <input type="text" id="inputTask" placeholder="Agregar nueva tarea">
+    <button id="btnAddTask">Agregar tarea</button>
+
+    <ul id="taskList"></ul>
+<!-- 
+    <script src="list.js">     
+    </script> -->
+    <script>
+        class Task {
+            constructor(description) {
+                this.description = description;
+                this.completed = false;
+            }
+
+            toggleCompleted() {
+                this.completed = !this.completed;
+            }
+        }
+
+        class TaskManager {
+            constructor() {
+                this.tasks = [];
+            }
+
+            addTask(description) {
+                const task = new Task(description);
+                this.tasks.push(task);
+            }
+
+            toggleTaskStatus(index) {
+                this.tasks[index].toggleCompleted();
+            }
+
+            /*deleteTask(index) {
+                this.tasks.splice(index, 1);
+            }
+            */
+            render() {
+                const taskList = document.getElementById('taskList');
+                taskList.innerHTML = '';
+
+                this.tasks.forEach((task, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = task.description;
+                    li.className = task.completed ? 'completed' : '';
+
+                    li.addEventListener('click', () => {
+                        this.toggleTaskStatus(index);
+                        this.render();
+                    });
+
+                    /*li.addEventListener('contextmenu', (event) => {
+                        event.preventDefault();
+                        this.deleteTask(index);
+                        this.render();
+                    });
+                    */
+
+                    taskList.appendChild(li);
+                });
+            }
+        }
+
+        const taskManager = new TaskManager();
+        
+        const inputTask = document.getElementById('inputTask');
+        const btnAddTask = document.getElementById('btnAddTask');
+
+        btnAddTask.addEventListener('click', () => {
+            const taskDescription = inputTask.value.trim();
+            if (taskDescription !== '') {
+                taskManager.addTask(taskDescription);
+                taskManager.render();
+                inputTask.value = '';
+            }
+        });
+
+        taskManager.render();
+    </script>
+</body>
+</html>

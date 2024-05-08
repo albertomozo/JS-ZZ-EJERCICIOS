@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Discos Sara</title>
+        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+        <link rel="stylesheet" href="style.css">
+        <script src="app.js"></script>
+    </head>
+    <body onload="addList()">
+        <header class="header">
+            <h1>Tienda de Discos</h1>
+        <div id="cartIcon">
+            <img src="images/cart.png" alt="Carrito de Compras" onclick="show_cart()">
+            <span id="cartItemCount">0</span>
+        </div>
+        </header>
+            
+        <ul id="list">     
+
+        </ul>
+        <div id="cart" class="hidden">
+            <h2>Carrito de Compras</h2>
+            <div id="cartItems"></div>
+            <p>Total: <span id="cartTotal">0</span>€</p>
+        </div>
+
+    </body>
+</html>
