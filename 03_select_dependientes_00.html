@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>select dependientes</title>
+</head>
+<body>
+    <h1>Select Dependientes</h1>
+    <select name="dependientes" id="dependientes" onchange="seleccion()">
+        <option>--- seleccione opcion ---</option>
+        <option>Front</option>
+        <option>Back</option>
+        <option>DevOps</option>
+    </select>
+    <div id="result"></div>
+    
+
+    <script>
+        let vselect = document.getElementById('dependientes');
+        function seleccion() {
+            console.log('👏');
+            
+           
+            console.log('indice seleccionado' + vselect.value); // value del elemento seleccionado
+            console.log('selectedIndex ' + vselect.selectedIndex);
+            const textoSeleccionado = vselect.options[vselect.selectedIndex].text;
+
+            document.getElementById('result').innerHTML = textoSeleccionado;
+
+
+        }
+
+    </script>
+</body>
+</html>
